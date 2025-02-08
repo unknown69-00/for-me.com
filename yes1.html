@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yes! ❤️</title>
+    <style>
+        body {
+            background-color: #ffccd5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .message-box {
+            padding: 20px;
+            border: 2px solid #ff4d6d;
+            border-radius: 10px;
+            background-color: white;
+            width: 300px;
+            min-height: 120px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        .button {
+            background-color: #ff4d6d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px; /* Added spacing */
+        }
+        .button:hover {
+            background-color: #d42a4c;
+        }
+        
+        /* Custom Music Player */
+        .music-card {
+            cursor: pointer;
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto 20px auto; /* Added spacing below */
+            background-color: #f7f7f7;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .music-card:hover {
+            transform: translateY(-5px);
+        }
+        .track-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .track-artist {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .progress-container {
+            position: relative;
+            margin: 16px 0;
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+            width: 80%;
+        }
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background-color: #f59e0b;
+            border-radius: 3px;
+        }
+        .progress-time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #6b7280;
+            width: 80%;
+        }
+        
+        /* Floating Hearts Animation */
+        .heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: float 5s linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0.8; }
+            50% { opacity: 1; transform: translateY(50vh) scale(1); }
+            100% { transform: translateY(-10vh) scale(0.8); opacity: 0; }
+        }
+    </style>
+</head>
+<body onload="showUserName(); startHearts(); tryAutoPlay();">
+    <h1 id="congrats-message"></h1>
+    <div class="message-box" id="message-box"></div>
+
+    <!-- Custom Music Player -->
+    <div class="music-card">
+        <div class="track-title">Hosanna</div>
+        <p class="track-artist">Unknown Artist</p>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-time"><span id="currentTime">00:00</span><span id="duration">00:00</span></div>
+        <button class="button" id="playButton" onclick="playMusic()">Play Music 🎵</button>
+    </div>
+
+    <button class="button" onclick="goToVideo()">for You</button>
+
+    <audio id="audioPlayer" autoplay loop>
+        <source src="https://pagalfree.com/musics/128-Hosanna%20-%20Ekk%20Deewana%20Tha%20128%20Kbps.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="heart-container" id="heartContainer"></div>
+
+    <script>
+        function showUserName() {
+            const name = localStorage.getItem("userName") || "Guest";
+            document.getElementById("congrats-message").innerText = name + ", ji sukriya aapka par ❤️";
+            document.getElementById("message-box").innerText = "काफी देर कर दी तुमने आते-आते 🎉 कि इतना कुछ गवां दिया है तुम्हें पाने की खातिर कि अब तू मिल भी जाए तो ग़म है 💖";
+        }
+
+        function goToVideo() {
+            window.location.href = "video.html";
+        }
+
+        function tryAutoPlay() {
+            const audio = document.getElementById("audioPlayer");
+            const playButton = document.getElementById("playButton");
+
+            audio.play().then(() => {
+                console.log("Autoplay successful!");
+            }).catch(error => {
+                console.log("Autoplay blocked, showing play button.");
+                playButton.style.display = "block"; // Show play button if autoplay fails
+            });
+
+            audio.onloadedmetadata = function() {
+                document.getElementById("duration").textContent = formatTime(audio.duration);
+            };
+            audio.ontimeupdate = function() {
+                document.getElementById("progressBar").style.width = (audio.currentTime / audio.duration) * 100 + "%";
+                document.getElementById("currentTime").textContent = formatTime(audio.currentTime);
+            };
+        }
+
+        function playMusic() {
+            const audio = document.getElementById("audioPlayer");
+            audio.play();
+            document.getElementById("playButton").style.display = "none";
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+        }
+
+        function startHearts() {
+            setInterval(createHeart, 300);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            document.getElementById('heartContainer').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+    </script>
+</body>
+</html>

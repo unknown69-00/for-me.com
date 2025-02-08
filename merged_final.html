@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Are You Sure? 💔</title>
+    <style>
+        body {
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+        }
+        .message-box {
+            padding: 20px;
+            border: 2px solid #ff4d6d;
+            border-radius: 10px;
+            background-color: white;
+            width: 300px;
+            min-height: 120px;
+        }
+        .buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #yesButton {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        #yesButton:hover {
+            background-color: #d42a4c;
+        }
+        #noButton {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-container">
+        <iframe id="youtube-video" width="560" height="315" 
+        src="https://www.youtube.com/embed/m0nz3agmvaA?autoplay=1" 
+        frameborder="0" allow="autoplay" allowfullscreen>
+        </iframe>
+    </div>
+
+    <div class="message-box">
+        <p id="message">ज़िंदगी किस तरह बसर होगी दिल नहीं लग रहा मोहब्बत में...😭</p>
+        <div class="buttons">
+            <button id="yesButton" onclick="showCelebration()">Yes, I Do!</button>
+            <button id="noButton" onclick="changeMessage()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let messages = [
+            "“बिन तुम्हारे कभी नहीं आई क्या मिरी नींद भी तुम्हारी है…” 🥹",
+            "“किस लिए देखती हो आईना तुम तो ख़ुद से भी ख़ूबसूरत हो…” 🥺",
+            "तेरी हर अदा पर कुर्बान हो गए, तेरे ही इश्क में गुमनाम हो गए 💔",
+            "दिल तमन्ना से डर गया जनाब, सारा नशा उतर गया जनाब...😢",
+            "दिल-ए-बर्बाद को आबाद किया है मैने, आज मुद्दत में तुम्हें याद किया है मैंने 🙏",
+            "“जो गुज़ारी न जा सकी हम से, हम ने वो ज़िंदगी गुज़ारी है…” 💔",
+            "अब तो मान जाओ... सच्चे दिल से प्यार करता हूँ! 😭❤️"
+        ];
+
+        let index = 0;
+
+        function changeMessage() {
+            index = (index + 1) % messages.length;
+            document.getElementById("message").innerText = messages[index];
+        }
+
+        function showCelebration() {
+            window.location.href = "welcome.html";
+        }
+    </script>
+</body>
+</html>

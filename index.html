@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propose Day Special</title>
+    <style>
+        body {
+            background-color: #ffccd5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+        }
+        .heart {
+            color: red;
+            font-size: 50px;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .message-box {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ff4d6d;
+            border-radius: 10px;
+            background-color: white;
+            width: 300px;
+            min-height: 120px;
+        }
+        .buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #yesButton {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        #yesButton:hover {
+            background-color: #d42a4c;
+        }
+        #noButton {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>यादों का हिसाब रख रहा हून, सीने में अज़ाब रख रहा हूँ तुम कुछ कहे जाओ, क्या कहूँ मैं, बस मैं आपके जवाब का इंतजार कर रहा हूँ।....</h1>
+    <div class="heart">❤️</div>
+    <div class="message-box">
+        <p>Would you be mine forever? 💖</p>
+        <div class="buttons">
+            <button id="yesButton" onclick="showCelebration()">Yes, I Do!</button>
+            <button id="noButton" onclick="redirectToNoPage()">No</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectToNoPage() {
+            window.location.href = 'merged_final.html'; // First "No" page will start the loop
+        }
+
+        function showCelebration() {
+            window.location.href = "welcome.html";
+
+        }
+    </script>
+</body>
+</html>
